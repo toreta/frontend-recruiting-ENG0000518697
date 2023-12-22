@@ -9,9 +9,14 @@ export type Receipt = {
 };
 
 export type Payment = {
-  type: string;
+  type: 'CASH' | 'COUPON';
   percentage?: number;
   amount?: number;
+};
+
+const PAYMENT_TYPE = {
+  CASH: 'CASH',
+  COUPON: 'COUPON',
 };
 
 export function charge(invoice: Invoice, payments: Payment[]) {
@@ -19,32 +24,26 @@ export function charge(invoice: Invoice, payments: Payment[]) {
   let deposit = 0;
 
   payments
-    .sort((payment) => (payment.type !== 'CASH' ? -1 : 1))
+    .sort((payment) => (payment.type !== PAYMENT_TYPE.CASH ? -1 : 1))
     .map((payment) => {
-      if (payment.type === 'COUPON') {
-        if (payment.percentage != null) {
-          deposit += Math.floor(total * (payment.percentage / 100));
-        } else {
+      if (deposit >= total) throw new Error('OverCharge');
+      switch (payment.type) {
+        case PAYMENT_TYPE.CASH:
           deposit += payment.amount || 0;
-        }
-      } else {
-        if (deposit >= total) {
-          throw new Error('OverCharge');
-        }
-        deposit += payment.amount || 0;
+          break;
+        case PAYMENT_TYPE.COUPON:
+          payment.percentage != null
+            ? (deposit += Math.floor(total * (payment.percentage / 100)))
+            : (deposit += payment.amount || 0);
+          break;
+        default:
+          throw new Error('InvalidPaymentType');
       }
     });
-  if (total > deposit) {
-    throw new Error('Shortage');
-  }
+  if (total > deposit) throw new Error('Shortage');
 
-  let isCoupon = true;
-  for (let i = 0; i < payments.length; i++) {
-    if (payments[i].type !== 'COUPON') {
-      isCoupon = false;
-      continue;
-    }
-  }
+  const isCoupon = !payments.some((payment) => payment.type !== PAYMENT_TYPE.COUPON);
   if (isCoupon) return { total, deposit, change: 0 };
+
   return { total: total, deposit: deposit, change: deposit - total };
 }
