@@ -23,23 +23,14 @@ export function charge(invoice: Invoice, payments: Payment[]) {
   const total = invoice.total;
   let deposit = 0;
 
-  payments
-    .sort((payment) => (payment.type !== PAYMENT_TYPE.CASH ? -1 : 1))
-    .map((payment) => {
-      if (deposit >= total) throw new Error('OverCharge');
-      switch (payment.type) {
-        case PAYMENT_TYPE.CASH:
-          deposit += payment.amount || 0;
-          break;
-        case PAYMENT_TYPE.COUPON:
-          payment.percentage != null
-            ? (deposit += Math.floor(total * (payment.percentage / 100)))
-            : (deposit += payment.amount || 0);
-          break;
-        default:
-          throw new Error('InvalidPaymentType');
-      }
-    });
+  payments.map((payment) => {
+    if (deposit >= total) throw new Error('OverCharge');
+    if (PAYMENT_TYPE.COUPON && payment.percentage != null) {
+      deposit += Math.floor(total * (payment.percentage / 100));
+    } else {
+      deposit += payment.amount || 0;
+    }
+  });
   if (total > deposit) throw new Error('Shortage');
 
   const isCoupon = !payments.some((payment) => payment.type !== PAYMENT_TYPE.COUPON);
