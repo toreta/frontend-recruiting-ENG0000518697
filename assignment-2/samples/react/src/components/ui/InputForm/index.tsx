@@ -14,7 +14,7 @@ export const InputForm: React.FC<Props> = ({
   onChange,
 }) => {
   const inputClassName = `${styles.input} ${
-    (styles.select, message ? styles.error : styles.default)
+    message ? styles.error : styles.default
   }`;
   return (
     <div>

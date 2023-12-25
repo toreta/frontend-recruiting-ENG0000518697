@@ -41,8 +41,9 @@ export const UserFormTemplate = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<Inputs>({
+    mode: "onChange",
     defaultValues: {
       name: "",
       email: "",
@@ -171,7 +172,7 @@ export const UserFormTemplate = () => {
         />
       </div>
       <div className={styles.button}>
-        <ActionButton name="登録" />
+        <ActionButton type="submit" disabled={!isValid} name="登録" />
       </div>
     </form>
   );
