@@ -21,6 +21,7 @@ export const UserFormTemplate = () => {
           render={({ field: { onChange, value } }) => (
             <InputForm
               label="氏名"
+              role="user-form-input-name"
               type="text"
               placeholder="(例)トレタ 太郎"
               onChange={onChange}
@@ -37,6 +38,7 @@ export const UserFormTemplate = () => {
           render={({ field: { onChange, value } }) => (
             <InputForm
               label="Eメール"
+              role="user-form-input-email"
               type="text"
               placeholder="(例)yoyaku@toreta.in"
               onChange={onChange}
@@ -53,6 +55,7 @@ export const UserFormTemplate = () => {
           render={({ field: { onChange, value } }) => (
             <InputForm
               label="郵便番号"
+              role="user-form-input-zip"
               type="text"
               placeholder="(例)0000000"
               onChange={onChange}
@@ -69,6 +72,7 @@ export const UserFormTemplate = () => {
           render={({ field: { onChange, value } }) => (
             <SelectForm
               label="都道府県"
+              role="user-form-select-prefecture"
               name="prefecture"
               options={PrefectureOptions}
               onChange={onChange}
@@ -85,6 +89,7 @@ export const UserFormTemplate = () => {
           render={({ field: { onChange, value } }) => (
             <InputForm
               label="市区町村・番地"
+              role="user-form-input-address1"
               name="address1"
               type="text"
               placeholder="(例)品川区西五反田７丁目２２−１７"
@@ -102,6 +107,7 @@ export const UserFormTemplate = () => {
           render={({ field: { onChange, value } }) => (
             <InputForm
               label="建物名・号室"
+              role="user-form-input-address2"
               name="address2"
               type="text"
               placeholder="(例)TOCビル 8F"
@@ -111,8 +117,14 @@ export const UserFormTemplate = () => {
           )}
         />
       </div>
+
       <div className={styles.button}>
-        <ActionButton type="submit" disabled={!isValid} name="登録" />
+        <ActionButton
+          role="user-form-button"
+          type="submit"
+          disabled={!isValid}
+          name="登録"
+        />
       </div>
     </form>
   );

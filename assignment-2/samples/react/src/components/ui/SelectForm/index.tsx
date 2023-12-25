@@ -3,12 +3,14 @@ import styles from "./style.module.css";
 
 type Props = React.ComponentPropsWithRef<"select"> & {
   label: string;
+  role: string;
   options: Array<OptionType>;
   message?: string;
 };
 
 export const SelectForm: React.FC<Props> = ({
   label,
+  role,
   name,
   value = "",
   options,
@@ -18,12 +20,15 @@ export const SelectForm: React.FC<Props> = ({
   const selectClassName = `${styles.select} ${
     message ? styles.error : styles.default
   } ${value === "" ? styles.selectPlaceholderColor : styles.selectedColor}`;
-
   return (
     <div>
       <div className={styles.wrapper}>
-        <label className={styles.label}>{label}</label>
+        <label htmlFor={role} className={styles.label}>
+          {label}
+        </label>
         <select
+          role={role}
+          id={role}
           className={selectClassName}
           name={name}
           defaultValue={value}

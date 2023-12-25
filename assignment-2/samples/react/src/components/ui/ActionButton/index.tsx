@@ -1,13 +1,25 @@
 import styles from "./style.module.css";
 
-type Props = React.ComponentProps<"button">;
+type Props = React.ComponentProps<"button"> & {
+  role: string;
+};
 
-export const ActionButton: React.FC<Props> = ({ name, type, disabled }) => {
+export const ActionButton: React.FC<Props> = ({
+  role,
+  name,
+  type,
+  disabled = false,
+}) => {
   const buttonClassName = `${styles.button} ${
     disabled ? styles.disabled : styles.default
   }`;
   return (
-    <button disabled={disabled} type={type} className={buttonClassName}>
+    <button
+      role={role}
+      disabled={disabled}
+      type={type}
+      className={buttonClassName}
+    >
       {name}
     </button>
   );
