@@ -9,6 +9,7 @@ export const InputForm: React.FC<Props> = ({
   type,
   value,
   placeholder,
+  onChange,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -18,6 +19,7 @@ export const InputForm: React.FC<Props> = ({
         type={type}
         placeholder={placeholder}
         value={value}
+        onChange={onChange}
       />
     </div>
   );
