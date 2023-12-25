@@ -1,4 +1,6 @@
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { InputForm } from "../../ui/InputForm";
 import { SelectForm } from "../../ui/SelectForm";
@@ -16,8 +18,31 @@ type Inputs = {
   address2?: string;
 };
 
+const validationSchema = z.object({
+  name: z.string().min(1, "氏名を入力してください"),
+  email: z
+    .string()
+    .min(1, "メールアドレスを入力してください")
+    .email("正しいメールアドレスを入力してください"),
+  zip: z
+    .string()
+    .min(1, "郵便番号を入力してください")
+    .refine((value) => value.length === 7, {
+      message: "7桁の半角数字で入力してください",
+    })
+    .refine((value) => /^[0-9]+$/.test(value), {
+      message: "ハイフンを含めずに半角数字で入力してください。",
+    }),
+  prefecture: z.string().min(1, "都道府県を選択してください"),
+  address1: z.string().min(1, "市区町村・番地を入力してください"),
+});
+
 export const UserFormTemplate = () => {
-  const { handleSubmit, control } = useForm<Inputs>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<Inputs>({
     defaultValues: {
       name: "",
       email: "",
@@ -26,6 +51,7 @@ export const UserFormTemplate = () => {
       address1: "",
       address2: "",
     },
+    resolver: zodResolver(validationSchema),
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -58,6 +84,7 @@ export const UserFormTemplate = () => {
               placeholder="(例)トレタ 太郎"
               onChange={onChange}
               value={value}
+              message={errors.name?.message}
             />
           )}
         />
@@ -73,6 +100,7 @@ export const UserFormTemplate = () => {
               placeholder="(例)yoyaku@toreta.in"
               onChange={onChange}
               value={value}
+              message={errors.email?.message}
             />
           )}
         />
@@ -88,6 +116,7 @@ export const UserFormTemplate = () => {
               placeholder="(例)0000000"
               onChange={onChange}
               value={value}
+              message={errors.zip?.message}
             />
           )}
         />
@@ -119,6 +148,7 @@ export const UserFormTemplate = () => {
               placeholder="(例)品川区西五反田７丁目２２−１７"
               onChange={onChange}
               value={value}
+              message={errors.address1?.message}
             />
           )}
         />
