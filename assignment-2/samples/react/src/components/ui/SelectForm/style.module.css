@@ -14,8 +14,9 @@
   line-height: 14.52px;
 }
 
-.input {
-  display: inline-block;
+.select {
+  appearance: none;
+  display: block;
   margin-left: 10px;
   padding: 8px;
   width: 230px;
@@ -25,8 +26,6 @@
   border-radius: 5px;
   font-size: 12px;
   line-height: 14.52px;
-}
-
-.input::placeholder {
-  color: #d3d3d3;
+  background: #fff url(../../../svgs/polygon.svg) no-repeat right 10px center /
+    16px auto;
 }

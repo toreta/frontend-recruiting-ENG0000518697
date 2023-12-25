@@ -1,16 +1,18 @@
 import styles from "./style.module.css";
 
-type Props = React.ComponentProps<"input">;
+type Props = React.ComponentProps<"input"> & {
+  label: string;
+};
 
 export const InputForm: React.FC<Props> = ({
-  name,
+  label,
   type,
   value,
   placeholder,
 }) => {
   return (
     <div className={styles.wrapper}>
-      <label className={styles.label}>{name}</label>
+      <label className={styles.label}>{label}</label>
       <input
         className={styles.input}
         type={type}
