@@ -13,12 +13,15 @@ export const InputForm: React.FC<Props> = ({
   message,
   onChange,
 }) => {
+  const inputClassName = `${styles.input} ${
+    (styles.select, message ? styles.error : styles.default)
+  }`;
   return (
     <div>
       <div className={styles.wrapper}>
         <label className={styles.label}>{label}</label>
         <input
-          className={styles.input}
+          className={inputClassName}
           type={type}
           placeholder={placeholder}
           value={value}

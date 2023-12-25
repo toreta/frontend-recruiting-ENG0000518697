@@ -132,6 +132,7 @@ export const UserFormTemplate = () => {
               options={PrefectureOptions}
               onChange={onChange}
               value={value}
+              message={errors.prefecture?.message}
             />
           )}
         />

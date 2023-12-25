@@ -31,6 +31,14 @@
   color: #d3d3d3;
 }
 
+.default {
+  border: 1px solid #e2e2e2;
+}
+
+.error {
+  border: 1px solid #fb0000;
+}
+
 .message {
   text-align: left;
   margin-top: 3px;
