@@ -58,7 +58,7 @@ export const useUserFormTemplate = () => {
     }
     if (!/^[0-9]+$/.test(zipValue)) {
       setError("zip", {
-        message: "ハイフンを含めずに半角数字で入力してください。",
+        message: "ハイフンを含めずに半角数字で入力してください",
       });
       isValidError = true;
     }
