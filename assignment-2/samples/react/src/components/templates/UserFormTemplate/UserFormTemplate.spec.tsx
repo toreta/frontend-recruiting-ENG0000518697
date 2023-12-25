@@ -421,8 +421,17 @@ describe("UserFormTemplate test", () => {
         userEvent.clear(emailInput);
         userEvent.type(emailInput, "test2@test.com");
 
+        // ボタンクリック前はエラーメッセージは表示されない
+        await waitFor(() =>
+          expect(
+            screen.queryByRole("user-form-input-zip-message")
+          ).not.toBeInTheDocument()
+        );
+
+        // ボタンクリック
         userEvent.click(screen.getByRole("user-form-button"));
 
+        // ボタンクリックしてもエラーメッセージは表示されない
         await waitFor(() =>
           expect(
             screen.queryByRole("user-form-input-email-message")
@@ -464,6 +473,14 @@ describe("UserFormTemplate test", () => {
 
         userEvent.click(screen.getByRole("user-form-button"));
 
+        // ボタンクリック前はエラーメッセージは表示されない
+        await waitFor(() =>
+          expect(
+            screen.queryByRole("user-form-input-zip-message")
+          ).not.toBeInTheDocument()
+        );
+
+        // ボタンクリック
         await waitFor(() =>
           expect(
             screen.queryByRole("user-form-input-email-message")
@@ -507,8 +524,17 @@ describe("UserFormTemplate test", () => {
         userEvent.clear(zipInput);
         userEvent.type(zipInput, "9876543");
 
+        // ボタンクリック前はエラーメッセージは表示されない
+        await waitFor(() =>
+          expect(
+            screen.queryByRole("user-form-input-zip-message")
+          ).not.toBeInTheDocument()
+        );
+
+        // ボタンクリック
         userEvent.click(screen.getByRole("user-form-button"));
 
+        // ボタンクリックしてもエラーメッセージは表示されない
         await waitFor(() =>
           expect(
             screen.queryByRole("user-form-input-zip-message")
@@ -548,6 +574,14 @@ describe("UserFormTemplate test", () => {
         userEvent.clear(zipInput);
         userEvent.type(zipInput, "98765432");
 
+        // ボタンクリック前はエラーメッセージは表示されない
+        await waitFor(() =>
+          expect(
+            screen.queryByRole("user-form-input-zip-message")
+          ).not.toBeInTheDocument()
+        );
+
+        // ボタンクリック
         userEvent.click(screen.getByRole("user-form-button"));
 
         await waitFor(() =>
@@ -589,6 +623,14 @@ describe("UserFormTemplate test", () => {
         userEvent.clear(zipInput);
         userEvent.type(zipInput, "987-654");
 
+        // ボタンクリック前はエラーメッセージは表示されない
+        await waitFor(() =>
+          expect(
+            screen.queryByRole("user-form-input-zip-message")
+          ).not.toBeInTheDocument()
+        );
+
+        // ボタンクリック
         userEvent.click(screen.getByRole("user-form-button"));
 
         await waitFor(() =>
