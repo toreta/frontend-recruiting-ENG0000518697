@@ -20,6 +20,7 @@ export const SelectForm: React.FC<Props> = ({
   const selectClassName = `${styles.select} ${
     message ? styles.error : styles.default
   } ${value === "" ? styles.selectPlaceholderColor : styles.selectedColor}`;
+  const messageRole = `${role}-message`;
   return (
     <div>
       <div className={styles.wrapper}>
@@ -46,7 +47,11 @@ export const SelectForm: React.FC<Props> = ({
           </>
         </select>
       </div>
-      {message && <p className={styles.message}>{message}</p>}
+      {message && (
+        <p role={messageRole} className={styles.message}>
+          {message}
+        </p>
+      )}
     </div>
   );
 };

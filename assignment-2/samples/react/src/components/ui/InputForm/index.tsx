@@ -18,6 +18,7 @@ export const InputForm: React.FC<Props> = ({
   const inputClassName = `${styles.input} ${
     message ? styles.error : styles.default
   }`;
+  const messageRole = `${role}-message`;
   return (
     <div>
       <div className={styles.wrapper}>
@@ -34,7 +35,11 @@ export const InputForm: React.FC<Props> = ({
           onChange={onChange}
         />
       </div>
-      {message && <p className={styles.message}>{message}</p>}
+      {message && (
+        <p role={messageRole} className={styles.message}>
+          {message}
+        </p>
+      )}
     </div>
   );
 };
