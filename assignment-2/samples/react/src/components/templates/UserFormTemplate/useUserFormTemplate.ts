@@ -58,7 +58,7 @@ export const useUserFormTemplate = () => {
     }
     if (!/^[0-9]+$/.test(zipValue)) {
       setError("zip", {
-        message: "ハイフンを含めずに半角数字で入力してください",
+        message: "ハイフンを含めず半角数字で入力してください",
       });
       isValidError = true;
     }
@@ -69,8 +69,6 @@ export const useUserFormTemplate = () => {
     if (isValidFormat(data.email, data.zip)) return;
 
     try {
-      console.log("=== request data ===");
-      console.log(data);
       const response = await fetch("https://httpstat.us/201 ", {
         method: "POST",
         headers: {

@@ -636,7 +636,7 @@ describe("UserFormTemplate test", () => {
         await waitFor(() =>
           expect(
             screen.queryByRole("user-form-input-zip-message")
-          ).toHaveTextContent("ハイフンを含めずに半角数字で入力してください")
+          ).toHaveTextContent("ハイフンを含めず半角数字で入力してください")
         );
       });
     });
